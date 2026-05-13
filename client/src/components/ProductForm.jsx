@@ -41,7 +41,6 @@ const ProductForm = ({ onClose, editProduct }) => {
     e.preventDefault();
     setFormError("");
     const payload = { ...formData, price: Number(formData.price) };
-
     try {
       if (editProduct) {
         await dispatch(updateProduct({ id: editProduct._id, productData: payload })).unwrap();
@@ -59,33 +58,31 @@ const ProductForm = ({ onClose, editProduct }) => {
     /* ── Backdrop ── */
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
 
-      {/* ── Modal Box ── */}
-      <div className="bg-white rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      {/* ── Modal ── */}
+      <div className="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl">
 
-        {/* ── Modal Header ── */}
+        {/* ── Header ── */}
         <div className="flex items-center justify-between px-6 pt-6 pb-2">
-          <h2 className="text-xl font-bold text-slate-800">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white">
             {editProduct ? "✏️ Edit Product" : "➕ Add New Product"}
           </h2>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 text-2xl leading-none transition-colors"
+            className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-2xl leading-none transition-colors"
           >
             ✕
           </button>
         </div>
 
-        {/* ── Error Banner ── */}
+        {/* ── Error ── */}
         {formError && (
-          <div className="mx-6 mt-3 px-4 py-2.5 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+          <div className="mx-6 mt-3 px-4 py-2.5 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 rounded-lg text-sm">
             {formError}
           </div>
         )}
 
         {/* ── Form ── */}
         <form onSubmit={handleSubmit} className="px-6 py-5 flex flex-col gap-4">
-
-          {/* 2-column grid */}
           <div className="grid grid-cols-2 gap-4">
             <Field label="Product Name *" name="name"    value={formData.name}    onChange={handleChange} placeholder="e.g. Galaxy S24 Ultra" />
             <Field label="Brand *"        name="brand"   value={formData.brand}   onChange={handleChange} placeholder="e.g. Samsung" />
@@ -97,18 +94,18 @@ const ProductForm = ({ onClose, editProduct }) => {
 
           {/* Description */}
           <div className="flex flex-col gap-1">
-            <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">Description</label>
+            <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Description</label>
             <textarea
               name="description"
               value={formData.description}
               onChange={handleChange}
               placeholder="Brief product description..."
               rows={3}
-              className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 resize-none transition"
+              className="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 resize-none transition"
             />
           </div>
 
-          {/* In Stock checkbox */}
+          {/* In Stock */}
           <label className="flex items-center gap-2 cursor-pointer select-none">
             <input
               type="checkbox"
@@ -117,15 +114,15 @@ const ProductForm = ({ onClose, editProduct }) => {
               onChange={handleChange}
               className="w-4 h-4 accent-indigo-600"
             />
-            <span className="text-sm font-medium text-slate-600">In Stock</span>
+            <span className="text-sm font-medium text-slate-600 dark:text-slate-300">In Stock</span>
           </label>
 
-          {/* Action buttons */}
+          {/* Buttons */}
           <div className="flex justify-end gap-3 pt-2">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors"
+              className="px-5 py-2 rounded-xl border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
             >
               Cancel
             </button>
@@ -143,10 +140,9 @@ const ProductForm = ({ onClose, editProduct }) => {
   );
 };
 
-/* Reusable input field */
 const Field = ({ label, name, value, onChange, type = "text", placeholder }) => (
   <div className="flex flex-col gap-1">
-    <label className="text-xs font-semibold text-slate-500 uppercase tracking-wide">{label}</label>
+    <label className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{label}</label>
     <input
       type={type}
       name={name}
@@ -154,7 +150,7 @@ const Field = ({ label, name, value, onChange, type = "text", placeholder }) => 
       onChange={onChange}
       placeholder={placeholder}
       required={label.includes("*")}
-      className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 transition"
+      className="border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 rounded-lg px-3 py-2 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900 transition"
     />
   </div>
 );

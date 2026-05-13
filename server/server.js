@@ -13,6 +13,8 @@ const dotenv = require("dotenv");
 dotenv.config(); // Load .env variables into process.env
 
 const productRoutes = require("./routes/product.route.js");
+const authRoutes    = require("./routes/auth.route");
+
 
 const app = express();
 
@@ -26,6 +28,7 @@ app.use(express.json());
 
 // ── Routes ─────────────────────────────────────────────────
 // All requests to /api/products are forwarded to productRoutes
+app.use("/api/auth",     authRoutes);     // login, signup
 app.use("/api/products", productRoutes);
 
 // ── DB + Server Start ───────────────────────────────────────

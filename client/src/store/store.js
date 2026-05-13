@@ -20,11 +20,15 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import productReducer from "./slices/productSlice";
+import authReducer    from "./slices/authSlice";
+
 
 const store = configureStore({
   reducer: {
     // "products" is the key used in useSelector
     // productReducer manages { items, loading, error }
+     // state.auth.user, state.auth.loading
+    auth: authReducer,    
     products: productReducer,
   },
 });
